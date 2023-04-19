@@ -1,28 +1,14 @@
-// import { SortOptiosType } from "../App"
-import Bin from "../icons/bin"
-import Edit from "../icons/edit"
-import { SortOptiosType } from "../types/sort"
-import { ITask } from "../types/task"
-import { Priorities } from "../utils/Priorities"
-import { Status } from "../utils/Status"
-import { setDateFormat } from "../utils/dateFormat"
-import { sortTasks } from "../utils/sortTarks"
-import { IFilters } from "./Filters"
+import Bin from '../icons/bin'
+import Edit from '../icons/edit'
+import { Priorities } from '../utils/Priorities'
+import { Status } from '../utils/Status'
+import { setDateFormat } from '../utils/dateFormat'
+import { sortTasks } from '../utils/sortTarks'
 import { useMemo } from 'react'
 
-interface RenderTasksProps {
-    tasks: ITask[]
-    removeTask: (task: ITask) => void
-    filters?: IFilters
-    isReversedList: boolean
-    sortBy: SortOptiosType
-    hanlerEditTask: (task: ITask) => void
-}
-
-const RenderTasks = ({ tasks, removeTask, filters, isReversedList, sortBy, hanlerEditTask }: RenderTasksProps) => {
-    const tasksFiltered: ITask[] = useMemo(() => sortTasks({ tasks, filters, isReversedList, sortBy }), [tasks, filters, isReversedList, sortBy])
-    console.log({ isReversedList })
-    return (
+const RenderTasks = ({ tasks, removeTask, filters, isReversedList, sortBy, hanlerEditTask }) => {
+  const tasksFiltered = useMemo(() => sortTasks({ tasks, filters, isReversedList, sortBy }), [tasks, filters, isReversedList, sortBy])
+  return (
         <div className="flex gap-2 flex-col">
             <div className="w-full p-2 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-primary dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
@@ -31,7 +17,8 @@ const RenderTasks = ({ tasks, removeTask, filters, isReversedList, sortBy, hanle
                 <div className="flow-roo w-full">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                         {
-                            tasksFiltered.length > 0 ? tasksFiltered.map(({ id, title, description, priority, status, createdAt, modifieAt }) => {
+                            tasksFiltered.length > 0
+                              ? tasksFiltered.map(({ id, title, description, priority, status, createdAt, modifieAt }) => {
                                 return (
                                     <li key={id} className="py-3 sm:py-4 hover:bg-secondary px-2">
                                         <div className="flex flex-col text-xs text-gray-500 gap-1 mb-2">
@@ -72,7 +59,8 @@ const RenderTasks = ({ tasks, removeTask, filters, isReversedList, sortBy, hanle
                                         </div>
                                     </li>
                                 )
-                            }) : <div className="grid place-content-center w-full text-lg min-h-[20rem]">
+                              })
+                              : <div className="grid place-content-center w-full text-lg min-h-[20rem]">
                                 <span className="h-fit">No hay tareas</span>
                             </div>
                         }
@@ -82,7 +70,7 @@ const RenderTasks = ({ tasks, removeTask, filters, isReversedList, sortBy, hanle
             </div>
 
         </div>
-    )
+  )
 }
 
 export default RenderTasks

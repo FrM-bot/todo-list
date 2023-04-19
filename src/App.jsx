@@ -1,23 +1,21 @@
-import { Reducer, useReducer, useState } from "react"
-import RenderTasks from "./components/RenderTasks"
-import Filters, { IFilters } from "./components/Filters"
-import { DistatchTasks, TYPE_DISPATCH_TASKS, taskReducer } from "./reducers/task.reducer"
-import Form from "./components/Form"
-import TaskForm from "./components/TaskForm"
-import Sort from "./components/Sort"
-import { useModal } from "./components/Modal"
-import { ITask, KeysRequiredType } from "./types/task"
-import { SortOptiosType } from "./types/sort"
+import { useReducer, useState } from 'react'
+import { TYPE_DISPATCH_TASKS, taskReducer } from './reducers/task.reducer'
+import { useModal } from './components/Modal'
+import Filters from './components/Filters'
+import Form from './components/Form'
+import TaskForm from './components/TaskForm'
+import Sort from './components/Sort'
+import RenderTasks from './components/RenderTasks'
 
-const keysRequired: KeysRequiredType[] = ['title', 'description', 'priority', 'status']
+const keysRequired = ['title', 'description', 'priority', 'status']
 
-function App() {
-  const [tasks, dispatchTasks] = useReducer<Reducer<ITask[], { type: DistatchTasks; task: ITask }>>(taskReducer, JSON.parse(window.localStorage.getItem('tasks') || 'null') || [])
-  const [taskToEdit, setTaskToEdit] = useState<ITask>()
+function App () {
+  const [tasks, dispatchTasks] = useReducer(taskReducer, JSON.parse(window.localStorage.getItem('tasks') || 'null') || [])
+  const [taskToEdit, setTaskToEdit] = useState()
   const [isReversedList, setiIsReversedList] = useState(false)
-  const [sortBy, setSortBy] = useState<SortOptiosType>('modifieAt')
+  const [sortBy, setSortBy] = useState('modifieAt')
   const { Modal, handlerShowModal, isShow } = useModal()
-  const handlerSubmit = (formData: Omit<ITask, 'id'>) => {
+  const handlerSubmit = (formData) => {
     const uuid = self.crypto.randomUUID()
     dispatchTasks({
       type: TYPE_DISPATCH_TASKS.ADD_NEW_TASK,
@@ -25,16 +23,16 @@ function App() {
     })
   }
 
-  const [filters, setFilters] = useState<IFilters>()
+  const [filters, setFilters] = useState()
 
-  const removeTask = (task: ITask) => {
+  const removeTask = (task) => {
     dispatchTasks({
       type: TYPE_DISPATCH_TASKS.REMOVE_TASK,
-      task,
+      task
     })
   }
 
-  const applyFilter = (filter: IFilters) => {
+  const applyFilter = (filter) => {
     setFilters({
       ...filter
     })
@@ -45,21 +43,15 @@ function App() {
     handlerShowModal(false)
   }
 
-  const handlerEditTask = (task: ITask) => {
-    setTaskToEdit(task)
-    window.scrollTo({ top: 0 })
-  }
-
   const handlerReversed = () => {
     setiIsReversedList(!isReversedList)
   }
 
-  const handlerSelectSort = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event)
-    setSortBy(event.target.value as SortOptiosType)
+  const handlerSelectSort = (event) => {
+    setSortBy(event.target.value)
   }
 
-  const handlerSubmitEdit = (formData: ITask) => {
+  const handlerSubmitEdit = (formData) => {
     for (const key of keysRequired) {
       if (!formData[key]) {
         return alert(`Selecciona o completa el campo: ${key}`)
@@ -80,7 +72,7 @@ function App() {
     }
   }
 
-  const hanlerEditTask = (task: ITask) => {
+  const hanlerEditTask = (task) => {
     setTaskToEdit(task)
     handlerShowModal(!isShow)
   }

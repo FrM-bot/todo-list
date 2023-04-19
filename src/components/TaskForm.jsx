@@ -1,20 +1,12 @@
-import { PrioritiesOptions } from "../utils/Priorities";
-import Button from "./Button";
-import Input from "./Input";
-import Select from "./Select";
-import Textarea from "./Textarea"
-import { StatusOptions } from "../utils/Status"
-import { ITask } from "../types/task";
+import { PrioritiesOptions } from '../utils/Priorities'
+import Button from './Button'
+import Input from './Input'
+import Select from './Select'
+import Textarea from './Textarea'
+import { StatusOptions } from '../utils/Status'
 
-
-interface TaskFormProps {
-    taskToEdit?: ITask
-    clearForm?: () => void
-}
-
-export default function TaskForm({ taskToEdit, clearForm }: TaskFormProps) {
-    console.log(taskToEdit?.priority)
-    return (
+export default function TaskForm ({ taskToEdit, clearForm }) {
+  return (
         <>
             <div className='flex gap-2 items-center'>
                 <Input props={{ type: 'text', placeholder: 'Titulo', name: 'title', defaultValue: taskToEdit?.title, required: true, minLength: 3 }} />
@@ -41,5 +33,5 @@ export default function TaskForm({ taskToEdit, clearForm }: TaskFormProps) {
                 </div>
             </div>
         </>
-    )
+  )
 }

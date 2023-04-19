@@ -1,20 +1,14 @@
-import Arrow from "../icons/arrow"
-import Select from "./Select"
-
-interface Props {
-    isReversed: boolean
-    handlerReversed: () => void
-    handlerSelect: (event: React.ChangeEvent<HTMLSelectElement>) => void
-}
+import Arrow from '../icons/arrow'
+import Select from './Select'
 
 export const SortOptions = [
-    { value: "createdAt", text: "Creacion" },
-    { value: "modifieAt", text: "Modificacion" },
-    { value: "priority", text: "Prioridad" }
+  { value: 'createdAt', text: 'Creacion' },
+  { value: 'modifieAt', text: 'Modificacion' },
+  { value: 'priority', text: 'Prioridad' }
 ]
 
-const Sort = ({ isReversed, handlerReversed, handlerSelect }: Props) => {
-    return (
+const Sort = ({ isReversed, handlerReversed, handlerSelect }) => {
+  return (
         <div className="flex gap-2 flex-col">
             <h3 className="">Ordernar por:</h3>
             <div className="flex gap-10 items-center">
@@ -33,7 +27,7 @@ const Sort = ({ isReversed, handlerReversed, handlerSelect }: Props) => {
 
             </div>
         </div>
-    )
+  )
 }
 
 export default Sort
