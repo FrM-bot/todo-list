@@ -1,30 +1,28 @@
-import { ReactElement, SyntheticEvent } from 'react'
+import { type ReactElement, type SyntheticEvent } from 'react'
 
 interface Props {
-    children: ReactElement
-    onSubmit: (e: any) => void
-    className?: string
+  children: ReactElement
+  onSubmit: (e: any) => void
+  className?: string
 }
 
 const Form = ({ children, onSubmit: handlerSubmit, className }: Props) => {
-
-    const onSobmit = (event: SyntheticEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        const form = event.currentTarget
-        if (form) {
-            const data = Object.fromEntries(new FormData(form))
-            event.currentTarget.reset()
-            return data
-        }
-        return alert('Error al obtener el formulario.')
+  const onSobmit = (event: SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    if (form) {
+      const data = Object.fromEntries(new FormData(form))
+      event.currentTarget.reset()
+      return data
     }
+    alert('Error al obtener el formulario.')
+  }
 
-    return (
-        <form onSubmit={(event) => handlerSubmit(onSobmit(event))} className={className}>
+  return (
+        <form onSubmit={(event) => { handlerSubmit(onSobmit(event)) }} className={className}>
             {children}
         </form>
-    )
-
+  )
 }
 
 export default Form
